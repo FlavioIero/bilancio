@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bilancio con dati a scelta</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!--valore di partenza per calcolare SP-->
+  <div>
+    <form id="dati-sp">
+      <table>
+        <tr>
+          <td colspan="2">Tipo azienda</td>
+          <td colspan="2">
+            <select name="tipo-azienda" id="tipo-azienda">
+              <option value="industriale">Industriale</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <th colspan="2">
+            Valore nominale iniziale
+          </th>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <select name="dato-iniziale" id="dato-iniziale">
+              <option value="AC">AC</option>
+              <option value="IM">IM</option>
+              <option value="PB">PB</option>
+              <option value="PC">PC</option>
+              <option value="PN">PN</option>
+              <option value="TI">TI</option>
+            </select>
+          </td>
+          <td colspan="2">
+            <input type="number" id="val-nom" name="val-nom" min="1" step="1" value="1000000" placeholder="€1 000 000">
+          </td>
+        </tr>
+        <tr>
+          <th colspan="2">Valori percentuali classi SP</th>
+          <th colspan="2">Valori nominali classi CE</th>
+        </tr>
+        <tr>
+          <td>
+            <label for="AC">AC</label>
+          </td>
+          <td>
+            <input type="number" name="AC" id="AC" min="0" max="100" step="0.5" placeholder="30%" value="40">
+          </td>
+          <td>
+            <label for="A">Classe A</label>
+          </td>
+          <td>
+            <input type="number" name="A" id="A" step="1" placeholder="+-€5 000 000" value="6000000">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label for="PB">PB</label>
+          </td>
+          <td>
+            <input type="number" name="PB" id="PB" min="0" max="100" step="0.5" placeholder="30%" value="30">
+          </td>
+          <td>
+            <label for="B">Classe B</label>
+          </td>
+          <td>
+            <input type="number" name="B" id="B" step="1" placeholder="€+-5 000 000" value="-5000000">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label for="IM">IM</label>
+          </td>
+          <td>
+            <input type="number" name="IM" id="IM" min="0" max="100" step="0.5" placeholder="30%" value="60">
+          </td>
+          <td>
+            <label for="C">Classe C</label>
+          </td>
+          <td>
+            <input type="number" name="C" id="C" step="1" placeholder="+-€5 000 000" value="-100000">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label for="PC">PC</label>
+          </td>
+          <td>
+            <input type="number" name="PC" id="PC" min="0" max="100" step="0.5" placeholder="30%" value="20">
+          </td>
+          <td>
+            <label for="D">Classe D</label>
+          </td>
+          <td>
+            <input type="number" name="D" id="D" step="1" placeholder="+-€5 000 000" value="0">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label for="PN">PN</label>
+          </td>
+          <td>
+            <input type="number" name="PN" id="PN" min="0" max="100" step="0.5" placeholder="30%" value="50">
+          </td>
+        </tr>
+        <tr>
+          <th colspan="2">Valori percentuali sottoclassi SP</th>
+        </tr>
+        <tr>
+          <td>
+            <label for="DL">DL</label>
+          </td>
+          <td>
+            <input type="number" name="DL" id="DL" min="0" max="100" step="0.5" placeholder="% su TI" value="10">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label for="DF">DF</label>
+          </td>
+          <td>
+            <input type="number" name="DF" id="DF" min="0" max="100" step="0.5" placeholder="% su TI" value="10">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label for="RIM">RIM</label>
+          </td>
+          <td>
+            <input type="number" name="RIM" id="RIM" min="0" max="100" step="0.5" placeholder="% su TI" value="20">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label for="IM-FIN">IM FIN</label>
+          </td>
+          <td>
+            <input type="number" name="IM-FIN" id="IM-FIN" min="0" max="100" step="0.5" placeholder="% su TI" value="0">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label for="IM-IMM">IM IMM</label>
+          </td>
+          <td>
+            <input type="number" name="IM-IMM" id="IM-IMM" min="0" max="100" step="0.5" placeholder="% su TI" value="5">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label for="IM-MAT">IM MAT</label>
+          </td>
+          <td>
+            <input type="number" name="IM-MAT" id="IM-MAT" min="0" max="100" step="0.5" placeholder="% su TI" value="55">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label for="CP">CP</label>
+          </td>
+          <td>
+            <input type="number" name="CP" id="CP" min="0" max="100" step="0.5" placeholder="% su TI" value="50">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label for="REsp">RE</label>
+          </td>
+          <td>
+            <input type="number" name="REsp" id="REsp" min="0" max="100" step="0.5" placeholder="% su TI" value="0">
+          </td>
+        </tr>
+        <tr>
+          <th colspan="2">Altri valori nominali</th>
+        </tr>
+        <tr>
+          <td>
+            <label for="RE">RE (CE)</label>
+          </td>
+          <td>
+            <input type="number" name="RE" id="RE" min="0" step="1" placeholder="€300 000" value="400000">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label for="RO-valore">RO</label>
+          </td>
+          <td>
+            <input type="number" name="RO" id="RO" min="0" step="1" placeholder="€300 000" value="500000">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label for="RV-valore">RV</label>
+          </td>
+          <td>
+            <input type="number" name="RV" id="RV" min="0" step="1" placeholder="€300 000" value="6000000">
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>
+            <button id="submitBtn">Invia</button>
+          </td>
+        </tr>
+      </table>
+    </form><br>
+  </div>
+
+  <!--Bilancio-->
+  <div id="container-bilancio">
+    <!--SP riclassificato sintetico a valori % e nominali-->
+    <table id="sp-riclassificato-sintetico">
+      <tr>
+        <th colspan="8" id="sp-riclassificato-titolo" style="border-bottom: 4px solid;">SP riclassificato sintetico</th>
+      </tr>
+      <tr>
+        <td class="sp-classe" colspan="2">AC</td>
+        <td class="sp-classe sp-percentuale" id="sp-AC-percentuale">%</td>
+        <td class="sp-classe sp-valore" id="sp-AC-valore" style="border-right: 3px solid;">€</td>
+        <td class="sp-classe" colspan="2">PB</td>
+        <td class="sp-classe sp-percentuale" id="sp-PB-percentuale">%</td>
+        <td class="sp-classe sp-valore" id="sp-PB-valore">€</td>
+      </tr>
+      <tr>
+        <td class="sp-vuoto"></td>
+        <td class="sp-sottoclasse">DL</td>
+        <td class="sp-sottoclasse sp-percentuale" id="sp-DL-percentuale">%</td>
+        <td class="sp-sottoclasse sp-valore" id="sp-DL-valore" style="border-right: 3px solid;">€</td>
+        <td class="sp-classe" colspan="2" style="border-bottom: 2px solid;">PC</td>
+        <td class="sp-classe sp-percentuale" id="sp-PC-percentuale" style="border-bottom: 2px solid;">%</td>
+        <td class="sp-classe sp-valore" id="sp-PC-valore" style="border-bottom: 2px solid;">€</td>
+      </tr>
+      <tr>
+        <td class="sp-vuoto"></td>
+        <td class="sp-sottoclasse">DF</td>
+        <td class="sp-sottoclasse sp-percentuale" id="sp-DF-percentuale">%</td>
+        <td class="sp-sottoclasse sp-valore" id="sp-DF-valore" style="border-right: 3px solid;">€</td>
+        <td class="sp-classe" colspan="2">CD</td>
+        <td class="sp-classe sp-percentuale" id="sp-CD-percentuale">%</td>
+        <td class="sp-classe sp-valore" id="sp-CD-valore">€</td>
+      </tr>
+      <tr>
+        <td class="sp-vuoto"></td>
+        <td class="sp-sottoclasse">RIM</td>
+        <td class="sp-sottoclasse sp-percentuale" id="sp-RIM-percentuale">%</td>
+        <td class="sp-sottoclasse sp-valore" id="sp-RIM-valore" style="border-right: 3px solid;">€</td>
+        <td class="sp-classe" colspan="2">PN</td>
+        <td class="sp-classe sp-percentuale" id="sp-PN-percentuale">%</td>
+        <td class="sp-classe sp-valore" id="sp-PN-valore">€</td>
+      </tr>
+      <tr>
+        <td class="sp-classe" colspan="2">IM</td>
+        <td class="sp-classe sp-percentuale" id="sp-IM-percentuale">%100</td>
+        <td class="sp-classe sp-valore" id="sp-IM-valore" style="border-right: 3px solid;">€9999999999</td>
+        <td class="sp-vuoto"></td>
+        <td class="sp-sottoclasse">CP</td>
+        <td class="sp-sottoclasse sp-percentuale" id="sp-CP-percentuale">%</td>
+        <td class="sp-sottoclasse sp-valore" id="sp-CP-valore">€</td>
+      </tr>
+      <tr>
+        <td class="sp-vuoto"></td>
+        <td class="sp-sottoclasse">IM FIN</td>
+        <td class="sp-sottoclasse sp-percentuale" id="sp-IM-FIN-percentuale">%</td>
+        <td class="sp-sottoclasse sp-valore" id="sp-IM-FIN-valore" style="border-right: 3px solid;">€</td>
+        <td class="sp-vuoto"></td>
+        <td class="sp-sottoclasse">RE</td>
+        <td class="sp-sottoclasse sp-percentuale" id="sp-REsp-percentuale">%</td>
+        <td class="sp-sottoclasse sp-valore" id="sp-REsp-valore">€</td>
+      </tr>
+      <tr>
+        <td class="sp-vuoto"></td>
+        <td class="sp-sottoclasse">IM IMM</td>
+        <td class="sp-sottoclasse sp-percentuale" id="sp-IM-IMM-percentuale">%</td>
+        <td class="sp-sottoclasse sp-valore" id="sp-IM-IMM-valore" style="border-right: 3px solid;">€</td>
+        <td colspan="4"></td>
+      </tr>
+      <tr>
+        <td class="sp-vuoto" style="border-bottom: 3px solid;"></td>
+        <td class="sp-sottoclasse" style="border-bottom: 3px solid;">IM MAT</td>
+        <td class="sp-sottoclasse sp-percentuale" id="sp-IM-MAT-percentuale" style="border-bottom: 3px solid;">%</td>
+        <td class="sp-sottoclasse sp-valore" id="sp-IM-MAT-valore" style="border-bottom: 3px solid; border-right: 3px solid;">€</td>
+        <td colspan="4" style="border-bottom: 3px solid;"></td>
+      </tr>
+      <tr>
+        <td class="sp-classe" colspan="2">TI</td>
+        <td class="sp-classe sp-percentuale" id="sp-TI-percentuale"></td>
+        <td class="sp-classe sp-valore" id="sp-TI-valore" style="border-right: 3px solid;">€</td>
+        <td class="sp-classe" colspan="2">TF</td>
+        <td class="sp-classe sp-percentuale" id="sp-TF-percentuale"></td>
+        <td class="sp-classe sp-valore" id="sp-TF-valore">€</td>
+      </tr>
+    </table><br>
+
+    <table id="CE">
+      <tr>
+        <th colspan="2">CE sintetico</th>
+      </tr>
+      <tr>
+        <td class="ce-classe ce-descrizione">A) Valore della produzione</td>
+        <td class="ce-classe ce-valore" id="ce-A-valore">€</td>
+      </tr>
+      <tr>
+        <td class="ce-classe ce-descrizione">B) Costi della produzione</td>
+        <td class="ce-classe ce-valore" id="ce-B-valore">€</td>
+      </tr>
+      <tr>
+        <td class="ce-classe ce-descrizione">A-B</td>
+        <td id="ce-AB-valore ce-valore">€</td>
+      </tr>
+      <tr>
+        <td class="ce-classe ce-descrizione">C) Proventi e oneri finanziari</td>
+        <td class="ce-classe ce-valore" id="ce-C-valore">€</td>
+      </tr>
+      <tr>
+        <td class="ce-classe ce-descrizione">D) Rettifiche di valore di attività e passività finanziarie</td>
+        <td class="ce-classe ce-valore" id="ce-D-valore">€</td>
+      </tr>
+      <tr>
+        <td class="ce-classe ce-descrizione">Risultato prima delle imposte</td>
+        <td class="ce-classe ce-valore" id="ce-RElordo-valore">€</td>
+      </tr>
+      <tr>
+        <td class="ce-classe ce-descrizione">Imposte sul reddito dell'esercizio</td>
+        <td class="ce-classe ce-valore" id="ce-imposte-valore">€</td>
+      </tr>
+      <tr>
+        <td class="ce-classe ce-descrizione" style="font-weight: bold;">Utile (perdita) dell'esercizio</td>
+        <td class="ce-classe ce-valore" id="ce-RE-valore" style="font-weight: bold;">€</td>
+      </tr>
+    </table>
+  </div>
+
+  <div id="indici"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
