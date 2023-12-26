@@ -81,7 +81,7 @@ let valoriBilancio = {
     stampa: true
   },
   IM_FIN: {
-    nome: "IM-FIN", 
+    nome: "IMFIN", 
     percentuale: 0, 
     valore: 0, 
     classe: "IM",
@@ -90,7 +90,7 @@ let valoriBilancio = {
     stampa: true
   },
   IM_IMM: {
-    nome: "IM-IMM", 
+    nome: "IMIMM", 
     percentuale: 0, 
     valore: 0, 
     classe: "IM",
@@ -99,7 +99,7 @@ let valoriBilancio = {
     stampa: true
   },
   IM_MAT: {
-    nome: "IM-MAT", 
+    nome: "IMMAT", 
     percentuale: 0, 
     valore: 0, 
     classe: "IM",
@@ -356,14 +356,35 @@ let indiciFinanziari = {
     valore: 0
   }
 };
-let tuttiIndici = {...indiciReddito, ...indiciPatrimoniali, ...indiciFinanziari};
+let margini = {
+  ccn: {
+    nome: "Capitale circolante netto",
+    formula: "AC-PB",
+    valore: 0
+  },
+  margineTesoreria: {
+    nome: "Margine di tesoreria",
+    formula: "DL+DF-PB",
+    valore: 0
+  },
+  margineStrutturaPrimario: {
+    nome: "Margine di struttura primario",
+    formula: "PN-IM",
+    valore: 0
+  },
+  margineStrutturaSecondario: {
+    nome: "Margine di struttura secondario",
+    formula: "PN+PC-IM",
+    valore: 0
+  }
+};
+let tuttiIndici = {...indiciReddito, ...indiciPatrimoniali, ...indiciFinanziari, ...margini};
 
 
 submitBtn.addEventListener("click", () => {
   tipoAzienda = document.getElementById("tipo-azienda").value;
   console.log("Ho preso il tipo azienda: ", tipoAzienda);
 });
-
 submitBtn.addEventListener("click", update_percentages);
 
 // aggiorna le % nello SP
@@ -376,8 +397,10 @@ function update_percentages(event) {
   for (let key in valoriBilancio) {
 
     if (valoriBilancio[key].aggiorna_percentuale) {
+      console.log(valoriBilancio[key].nome);
       let valCorrente = document.getElementById(valoriBilancio[key].nome).value;
 
+      // assegna solo se viene inserito un valore in input
       if (valCorrente !== "") {
         valCorrente = parseInt(valCorrente);
         valoriBilancio[key].percentuale = valCorrente;
@@ -392,6 +415,7 @@ function update_percentages(event) {
   valoriBilancio["CD"].percentuale = valoriBilancio["PB"].percentuale + valoriBilancio["PC"].percentuale;
   document.getElementById("sp-" + valoriBilancio["CD"].nome + "-percentuale").innerHTML = valoriBilancio["CD"].percentuale + "%";
 
+  // assegna valori alle chiavi del dato iniziale per poi calcolare il TI
   if (document.getElementById("val-nom").value !== null || document.getElementById("val-nom").value !== "") {
     datoIniziale.classe = document.getElementById("dato-iniziale").value;
     datoIniziale.percentuale = percentualeValNominale ?? 100;
@@ -402,11 +426,10 @@ function update_percentages(event) {
 }
 
 
-// SE CLASSE NOT NOME CALCOLA VALORE SU CLASSE
-// aggiorna_percentuale i valori nominali basandosi su 1 solo e sulle %
+// aggiorna i valori nominali del bilancio
 function update_values(datoIniziale) {
   console.log("sono in update values");
-  // calcolo TI
+  // calcola TI in base al valore nominale iniziale e alla sua percentuale
   valoriBilancio["TI"].valore = 
     Math.round(
       datoIniziale.valore / 
@@ -414,13 +437,18 @@ function update_values(datoIniziale) {
       100
     );
   valoriBilancio["TF"].valore = valoriBilancio["TI"].valore;
-
+	
+	// stampa TI e TF
   document.getElementById("sp-" + valoriBilancio["TI"].nome + "-valore").innerHTML = "€" + valoriBilancio["TI"].valore;
   document.getElementById("sp-" + valoriBilancio["TF"].nome + "-valore").innerHTML = "€" + valoriBilancio["TF"].valore;
 
   for (let key in valoriBilancio) {
-
-    if (valoriBilancio[key].documento === "sp" && !classiDaCalcolare.includes(key)) {
+		// calcola le classi con una formula
+    if (classiDaCalcolare.includes(key)) {
+      valoriBilancio[key].valore = calcola_formula(valoriBilancio[key].formula);
+    }
+		// calcola le classi dello SP in base al TI
+    else if (valoriBilancio[key].documento === "sp") {
       valoriBilancio[key].valore = 
         Math.round(
           valoriBilancio["TI"].valore / 
@@ -428,13 +456,12 @@ function update_values(datoIniziale) {
           valoriBilancio[key].percentuale
         );
     }
-    else if (valoriBilancio[key].documento === "ce" && !classiDaCalcolare.includes(key)) {
+		// assegna i valori in input delle classi del CE 
+    else {
       valoriBilancio[key].valore = parseInt(document.getElementById(valoriBilancio[key].nome).value);
     }
-    else {
-      valoriBilancio[key].valore = calcola_formula(valoriBilancio[key].formula);
-    }
 
+		// stampa i valori nel bilancio
     if (valoriBilancio[key].stampa) {
       document.getElementById(valoriBilancio[key].documento + "-" + valoriBilancio[key].nome + "-valore").innerHTML = "€" + valoriBilancio[key].valore;
     }
@@ -443,24 +470,27 @@ function update_values(datoIniziale) {
   calcola_indici();
 }
 
+// ritorna se il carattere mandato è alfabetico
 function is_alpha(char) {
   const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
   return letters.includes(char);
 }
 
+// ritorna se il carattere mandato è numerico
 function is_numeric(char) {
   const nums = "0123456789";
   return nums.includes(char);
 }
 
+// calcola un valore in base alla formula
 function calcola_formula(formula) {
   let operatori = dividi_formula(formula);
   let valCorrente = 0;
   console.log(formula);
   console.log("op fuori: ", operatori);
   while (operatori.length > 0) {
+		
     console.log(operatori);
-
     console.log("valCorrente: ", valCorrente);
 
     if (is_alpha(operatori[0][0])) {
@@ -489,6 +519,7 @@ function calcola_formula(formula) {
   return parseFloat(valCorrente.toFixed(2));
 }
 
+// divide la formula (stringa) in un array di stringhe
 function dividi_formula(formula) {
   let currentText = formula[0];
   let operatori = [];
@@ -517,7 +548,7 @@ function dividi_formula(formula) {
   return operatori;
 }
 
-// calcola e stampa gli indici 
+// calcola gli indici 
 function calcola_indici() {
   for (let key in tuttiIndici) {
     tuttiIndici[key].valore = calcola_formula(tuttiIndici[key].formula);

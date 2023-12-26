@@ -136,26 +136,26 @@
         </tr>
         <tr>
           <td>
-            <label for="IM-FIN">IM FIN</label>
+            <label for="IMFIN">IM FIN</label>
           </td>
           <td>
-            <input type="number" name="IM-FIN" id="IM-FIN" min="0" max="100" step="0.5" placeholder="% su TI" value="0">
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <label for="IM-IMM">IM IMM</label>
-          </td>
-          <td>
-            <input type="number" name="IM-IMM" id="IM-IMM" min="0" max="100" step="0.5" placeholder="% su TI" value="5">
+            <input type="number" name="IMFIN" id="IMFIN" min="0" max="100" step="0.5" placeholder="% su TI" value="0">
           </td>
         </tr>
         <tr>
           <td>
-            <label for="IM-MAT">IM MAT</label>
+            <label for="IMIMM">IM IMM</label>
           </td>
           <td>
-            <input type="number" name="IM-MAT" id="IM-MAT" min="0" max="100" step="0.5" placeholder="% su TI" value="55">
+            <input type="number" name="IMIMM" id="IMIMM" min="0" max="100" step="0.5" placeholder="% su TI" value="5">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label for="IMMAT">IM MAT</label>
+          </td>
+          <td>
+            <input type="number" name="IMMAT" id="IMMAT" min="0" max="100" step="0.5" placeholder="% su TI" value="55">
           </td>
         </tr>
         <tr>
@@ -265,8 +265,8 @@
       <tr>
         <td class="sp-vuoto"></td>
         <td class="sp-sottoclasse">IM FIN</td>
-        <td class="sp-sottoclasse sp-percentuale" id="sp-IM-FIN-percentuale">%</td>
-        <td class="sp-sottoclasse sp-valore" id="sp-IM-FIN-valore" style="border-right: 3px solid;">€</td>
+        <td class="sp-sottoclasse sp-percentuale" id="sp-IMFIN-percentuale">%</td>
+        <td class="sp-sottoclasse sp-valore" id="sp-IMFIN-valore" style="border-right: 3px solid;">€</td>
         <td class="sp-vuoto"></td>
         <td class="sp-sottoclasse">RE</td>
         <td class="sp-sottoclasse sp-percentuale" id="sp-REsp-percentuale">%</td>
@@ -275,15 +275,15 @@
       <tr>
         <td class="sp-vuoto"></td>
         <td class="sp-sottoclasse">IM IMM</td>
-        <td class="sp-sottoclasse sp-percentuale" id="sp-IM-IMM-percentuale">%</td>
-        <td class="sp-sottoclasse sp-valore" id="sp-IM-IMM-valore" style="border-right: 3px solid;">€</td>
+        <td class="sp-sottoclasse sp-percentuale" id="sp-IMIMM-percentuale">%</td>
+        <td class="sp-sottoclasse sp-valore" id="sp-IMIMM-valore" style="border-right: 3px solid;">€</td>
         <td colspan="4"></td>
       </tr>
       <tr>
         <td class="sp-vuoto" style="border-bottom: 3px solid;"></td>
         <td class="sp-sottoclasse" style="border-bottom: 3px solid;">IM MAT</td>
-        <td class="sp-sottoclasse sp-percentuale" id="sp-IM-MAT-percentuale" style="border-bottom: 3px solid;">%</td>
-        <td class="sp-sottoclasse sp-valore" id="sp-IM-MAT-valore" style="border-bottom: 3px solid; border-right: 3px solid;">€</td>
+        <td class="sp-sottoclasse sp-percentuale" id="sp-IMMAT-percentuale" style="border-bottom: 3px solid;">%</td>
+        <td class="sp-sottoclasse sp-valore" id="sp-IMMAT-valore" style="border-bottom: 3px solid; border-right: 3px solid;">€</td>
         <td colspan="4" style="border-bottom: 3px solid;"></td>
       </tr>
       <tr>
@@ -310,7 +310,7 @@
       </tr>
       <tr>
         <td class="ce-classe ce-descrizione">A-B</td>
-        <td id="ce-AB-valore ce-valore">€</td>
+        <td class="ce-classe ce-valore" id="ce-AB-valore">€</td>
       </tr>
       <tr>
         <td class="ce-classe ce-descrizione">C) Proventi e oneri finanziari</td>
