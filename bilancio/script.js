@@ -392,7 +392,7 @@ function update_percentages(event) {
   // impedisce il comportamento predefinito del bottone
   // all'interno di un form, che fa ricaricare la pagina
   event.preventDefault();
-
+	let percentualeValNominale = null;
   // assegna % alle classi SP 
   for (let key in valoriBilancio) {
 
@@ -406,7 +406,7 @@ function update_percentages(event) {
         valoriBilancio[key].percentuale = valCorrente;
         document.getElementById("sp-" + valoriBilancio[key].nome + "-percentuale").innerHTML = valCorrente + "%";
         if (document.getElementById("dato-iniziale").value === valoriBilancio[key].nome) {
-          var percentualeValNominale = valoriBilancio[key].percentuale;
+          percentualeValNominale = valoriBilancio[key].percentuale;
         }
       }
     }
@@ -416,13 +416,13 @@ function update_percentages(event) {
   document.getElementById("sp-" + valoriBilancio["CD"].nome + "-percentuale").innerHTML = valoriBilancio["CD"].percentuale + "%";
 
   // assegna valori alle chiavi del dato iniziale per poi calcolare il TI
-  if (document.getElementById("val-nom").value !== null || document.getElementById("val-nom").value !== "") {
-    datoIniziale.classe = document.getElementById("dato-iniziale").value;
-    datoIniziale.percentuale = percentualeValNominale ?? 100;
-    datoIniziale.valore = (document.getElementById("val-nom").value !== "") ? parseInt(document.getElementById("val-nom").value) : datoIniziale.valore;
-    
-    if (datoIniziale.valore !== null) update_values(datoIniziale);
-  }
+	datoIniziale.classe = document.getElementById("dato-iniziale").value;
+	datoIniziale.percentuale = (percentualeValNominale !== null) ? percentualeValNominale : datoIniziale.percentuale;
+	datoIniziale.valore = (document.getElementById("val-nom").value !== "") ? parseInt(document.getElementById("val-nom").value) : datoIniziale.valore;
+
+	if (datoIniziale.valore !== null && datoIniziale.percentuale !== null) {
+		update_values(datoIniziale);
+	}
 }
 
 
@@ -489,7 +489,7 @@ function calcola_formula(formula) {
   console.log(formula);
   console.log("op fuori: ", operatori);
   while (operatori.length > 0) {
-		
+
     console.log(operatori);
     console.log("valCorrente: ", valCorrente);
 
@@ -565,4 +565,29 @@ function stampa_indici() {
     indice.innerHTML = tuttiIndici[key].nome + " (" + tuttiIndici[key].formula + "): " + tuttiIndici[key].valore;
     divIndici.appendChild(indice);
   }
+
+  invia_dati_server();
 }
+
+
+// invia dati di bilancio, indici e margini al server che li manda al database
+function invia_dati_server() {
+  let xhr = new XMLHttpRequest();
+  let url = "server.php";
+  let datiDaInviare = "parametro1=valore1&parametro2=valore2";
+
+  xhr.open("GET", url, true);
+
+  xhr.onreadystatechange = function() {
+      if (xhr.readyState == 4 && xhr.status == 200) {
+        console.log("aaaaaaaaaaaaaaaa");
+        console.log(xhr.responseText);
+        console.log("ugkbyk");
+      }
+  };
+
+  xhr.send(datiDaInviare);
+  window.location.href = "http://localhost/html/bilancio/server.php";
+
+}
+
